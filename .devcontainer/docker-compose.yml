@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    env_file:
+      - .env
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      
+    command: sleep infinity
+    dns:
+      - ${DNS}
+    volumes:
+      - ../..:/workspaces:cached
+    ports:
+      - "28000:28000"
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
